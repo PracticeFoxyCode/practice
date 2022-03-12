@@ -1,5 +1,7 @@
 # Practice Foxy Code
 
+Welcome! 
+
 What follows is a list of dos and don'ts on how to write readable, dare I say,
 foxy, code.
 
