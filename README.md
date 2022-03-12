@@ -1,97 +1,56 @@
-# Python Conventions & Guidelines
+# Practice Foxy Code
 
-[[_TOC_]]
+What follows is a list of dos and don'ts on how to write readable, dare I say,
+foxy, code.
 
-What follows is a list of dos and don'ts on how to write readable code in Python.
-Many of them are applicable to other programming languages.
+Some of the practices are peculiar to Python.
 
-I have collected and formulated these rules over 12 years in software - I do not claim originality - 
-I've learned much from others even as I have passed this knowledge on.
+**Many of them are applicable to other programming languages**.
+
+I have collected and formulated these rules over 12 years in software - I do
+not claim originality - I've learned much from others even as I have passed
+this knowledge on.
 
 Enjoy!
 
-## Regarding PEP8
-
-Generally, we use PEP8 as our style guide, *this does not mean we worship it*.
-We will have more and more exceptions to PEP8 in time, and they will be detailed here.
-
-Exceptions to PEP8:
-
-* PEP8 line width: we allow with 180 characters per line, instead of the default 79 characters.
-* If PEP8 wants to format some code one way, but you think it's nicer another way - *you* are the boss, not PEP8.
-* PEP8 demands to use `staticmethod` whenever a method does not use `self` - we reject this. A static method 
-  communicates that the method belongs under the class as a sort of namespace - which is a semantic point, not a technical one.
-
-So the general rule is - PEP8 is a baseline, however, **PEP8 works for us, we don't work for PEP8.**
-
-If adhering do it makes code ugly - we don't adhere to it.
-
-## Never Use Mutable Values As Default Values for Function Arguments
-
-This is a common mistake for the uninitiated.
-
-```python
-#bad! this is a bug
-def add_to(element, to={}):
-    to['a'] = element
-    return to
-```
-
-What happens here is that an empty `dict` is created when the `def` is executed, i.e. *once*,
-and this `dict` is now the default value - even if it mutates and becomes non-empty.
-
-In short, **NEVER DO THIS, THE BUGS WILL DRIVE YOU NUTS**
-
-The proper way to have mutable default values is:
-
-```python
-#good:)
-def add_to(element, to=None):
-    if to is None:
-        to['a'] = element
-        return to
-```
+# The Practices
 
 ## Never Say Never
 
 Every rule here has its exceptions, there is no one way 
-to write code for every occasion. 
+to write code for every occasion. We must always use our mind
+when writing code, or else our programming will be, well, mindless.
 
-## Don't Employ Default Values Unless You Have a Really Good Reason To
-
-This is a special form of [preparing for the future](#preparing_for_the_future), see the discussion over there.
-
-## No "helpers", "utilities" or "utils" module
+## No "helpers", "utilities" or "utils" Module
 
 Generic "helper" modules are hard to understand, since
 "help" or "utility" is a very abstract concept.
 
-They also tend to become garbage modules with lots of unrelated code - every time 
-someone doesn't know where to put something - into the helper module it goes! 
+They also tend to become garbage modules with lots of unrelated code - every
+time someone doesn't know where to put something - into the helper module it
+goes! 
 
 Instead, write a module with a meaningful name, even
 if it only has one function inside:
 
 ```python
 # bad!
-from . import utils
+import utils
 
 ...
 encoded = utils.encode_message(message) # utils probably has lots and lots of other stuff unrelated to encoding
 
 # good!
 
-from . import encoder
+import encoder
 ...
 encoded = encoder.encode(message)
 ```
 
 ## (Almost) Never Write Comments <a name="never_write_comments"></a>
 
-When you want to write a comment,
-it means that *you* think that the code is not very readable, hence the need 
-to explain it.
-
+When you want to write a comment, it means that *you* think that the code is
+not very readable, hence the need to explain it.
 
 Comments are bad because there is no enforcing their correctness.
 As a result, they degenerate over time. After a few sprints,
@@ -120,23 +79,25 @@ at the reader
 ALLOW_SERVER_TO_REBOOT = 60
 ```
 
-<a name="mongo_does_not">Another example of this</a> may be to clarify some unclear libraries we use.
-This is a real life example: for some reason, using `ordered=False` in a MongoDB `insert_many` 
-command makes MongoDB not raise exceptions if some records cannot be inserted. We wanted 
-to use this, but this is a very obscure detail, so:
+<a name="mongo_does_not">Another example of this</a> may be to clarify some
+unclear code from libraries we use.  This is a real life example: for some
+reason, using `ordered=False` in a MongoDB `insert_many` command makes MongoDB
+not raise exceptions if some records cannot be inserted. Let's say we want to use this very obscure detail, how can we communicate this in our code? Here's one way to do it:
 ```python
 #bad!
-await Client.db.manual_access.insert_many(records, ordered=False) # wtf? why is ordered=False???
+await database.music.insert_many(records, ordered=False) # wtf? why is ordered=False???
 
 #good :)
 PREVENT_MONGO_FROM_RAISING_ON_INSERT_ERRORS = {'ordered': False}
-await Client.db.manual_access.insert_many(records, **PREVENT_MONGO_FROM_RAISING_ON_INSERT_ERRORS) # ahh, that's why
+await database.music.insert_many(records, **PREVENT_MONGO_FROM_RAISING_ON_INSERT_ERRORS) # ahh, that's why
 ```
 
 ### Extract code to function/class with explanatory name
 
+Let the reader know the semantic steps you had in mind when writing the code:
+
 ```python
-#bad!
+#bad! using comments...
 class ParseRecords:
     ...
     def go(self):
@@ -151,7 +112,7 @@ class ParseRecords:
             count += 1
         return count
 
-#good :)
+#good, using nicely named function :)
 class ParseRecords:
     ...
     def go(self):
@@ -170,7 +131,7 @@ class ParseRecords:
 
 ### Use a Log Instead of a Comment
 
-We return to the `time.sleep` example from before:
+People take log messages much more seriously than they take comments. If they change the code, they will probably change the log message as well. So, we can use log messages as a sort of comment replacement. We return to the `time.sleep` example from before:
 
 ```python
 #bad!
@@ -184,50 +145,15 @@ def stall(duration, reason):
 stall(60, 'allow server to reboot')
 ```
 
-## Private and Public Entities
-
-### Calling Base Class `__init__` Functions
-
-We do this like so:
-
-```python
-class Base:
-    def __init__(self, x):
-        ...
-
-class Derived(Base):
-    def __init__(self, x, y):
-        Base.__init__(self, x)
-        self.__y = y
-        ...
-```
-
-If the Derived class does not need an `__init__`,
-then don't write one. Python will use the base class's init in 
-this case:
-
-```python
-class Base:
-    def __init__(self, x):
-        ...
-
-class Derived(Base):
-    def some_method(self):
-        ...
-
-d = Derived(x=3) # no problem, python calls Base's __init__
-```
-
 ## Naming Conventions
 
 * class names are in `CamelCase`
 * module name, local variables, and functions are in `lower_snake_case`
 * constants are in `ALL_CAPS`
 * explanatory variables, e.g. `ALLOW_SERVER_TO_REBOOT` above, are in `ALL_CAPS`. 
-* **one file per public class**: a class named `EatingWare` will be inside a file named `eating_ware.py`.
+* **one file per public class**: a class named `CookWare` will be inside a file named `cook_ware.py`.
   
-  note the "public" part, the `eating_ware.py` file may include a private, `__Utensil` class, if
-  it's not too large.
+  Note the "public" part, the `cook_ware.py` file may include a private, `__Utensil` class, if it's not too large.
 
 Here's a summary:
 
@@ -257,7 +183,7 @@ A common bad practice is to use shorthand instead of complete words, e.g.
 * `pckt` instead of `packet`
 * `src` instead of `source`
 
-I could go on forever. These shorthands obscure meaning and 
+Et cetera, et cetera, et cetera. These shorthands obscure meaning and 
 save us nothing, not even typing, since the IDE has autocomplete.
    
 Exceptions to this rule are things like `HTML`. We write `HTML` not `hyper text markup language`.
@@ -291,7 +217,7 @@ for file in file_list:
 ```
 
 The problem here is that in most cases, nobody cares if the thing I'm iterating
-on is a list, a set, dictionary values, whatever, so why call it `file_list`? the `_list` here 
+on is a list, a set, dictionary values, whatever, so why call it `file_list`? The `_list` here 
 tells us something that we don't care about - hence, it's a waste of our brain power to process it.
 Our brain power is a scarce resource - let's not waste it.
 
@@ -313,7 +239,7 @@ files: list = files_from_directory()
 ...
 ```
 
-## Namespaces and `import`s
+## Namespaces and `import` Statements
 
 The Python language has the feature that the directory structure of our Python files
 is also the namespace structure we have in our Python program.
@@ -340,7 +266,7 @@ import pathlib
 home_directory = pathlib.Path.home()
 ```
 
-Another exmaple:
+Another example:
 ```python
 #GOOD!
 import os
@@ -367,9 +293,9 @@ However, you can use `from . import thing` if `thing` belongs in the same namesp
             ├── dog.py
             ├── golden_retriever.py
             └── labrador.py          
-        ├── great_cats/
+        ├── cats/
 
-and say we're looking at `labrador.py` file:
+And say we're looking at `labrador.py` file:
 
 ```python
 #labrador.py
@@ -380,19 +306,21 @@ class Labrador(animals.dogs.dog.Dog)
     ...
 
 #good :)
+# we are already in the animals.dogs namespace, let's feel at home
 from . import dog
 class Labrador(dog.Dog):
     ...
 
 ```
 
-this has the following advantages:
-* it's still explicit that `dog` and `labrador` belongs in the `animals.dogs` namespace
+This has the following advantages:
+* it's still explicit that `dog` and `labrador` belongs in the `animals.dogs`
+  namespace
 * we still don't import actual names from inside modules, only *modules* themselves.
 
 ### Namespace Inflation
 
-Given this tree:
+Here's an example of what not to do. Let's say you have this tree:
 
     parsers
     ├─ textual_parsers
@@ -405,7 +333,7 @@ import parsers.textual_parsers.perl_textual_parser
 ```
 
 Note that the word "textual" appears twice, and the word "parser" appears 3 times.
-This is called _namespace inflation_.
+This is called _namespace inflation_, and it's a readability killer.
 
 Take for example the name `PerlTextualParser`: we already know it's a
 textual parser, since it belongs to the `textual_parsers` namespace, so we
@@ -417,16 +345,18 @@ The fully qualified import should be:
 ```python
 import parsers.textual.perl # DRY - don't repeat yourself
 ...
+
+# later on...
+perl_parser = parsers.textual.perl.Perl()  # full context, still readable. The hierarchy is very clear
 ``` 
 
-At least that's how you should import this module from outside the `parsers` namespace.
-From *inside* the `parsers` namespace, you should write
+At least that's how you should import this module from outside the `parsers` namespace. From *inside* the `parsers` namespace, you should write
 
 ```python
 # this is parsers/textual/perl.py
-from . import parser # imports parsers/textual/parser.py
+from . import parser_base # imports parsers/textual/parser_base.py
 
-class Perl(parser.Parser):
+class Perl(parser_base.ParserBase):
     ...
 ```
 
@@ -435,6 +365,7 @@ reference something we don't have to mention `textual` or `parser` all the time.
 
 Note that the class inside the `perl.py` module is called `Perl`.
 
+BTW, I might even just call the base class `Base` and put it in a `parsers.textual.base` module, but `BaseParser` is also OK, despite the slight namespace inflation.
 
 ## Using Context
 
@@ -443,7 +374,7 @@ The preceding discussion is an example of a general rule:
 **We use context to avoid over-verbose code**
 
 ```python
-import shutil # file utilities from the standard python library
+import shutil # file utilities from the standard Python library
 
 #bad!
 class RenameFiles:
@@ -576,7 +507,7 @@ only introduce clutter.
 
 Here's a good example of when to use them:
 ```python
-# this is old school python
+# this is old school Python
 def exists(root, value):
     # root of what? what kind of value?
     ...
@@ -602,8 +533,8 @@ def login(username: str) -> Union[None, String]
 
 Module level constants are useful in two cases:
 
-* if they are public, and used in many places, so that if we need to change their value, we change only the definition.
-* if they constitute some config value that should be immeidately obvious
+* If they are public, and used in many places, so that if we need to change their value, we change only the definition.
+* If they constitute some config value that should be immediately obvious
 
 However, people tend to use them when this is not the case.
 
@@ -625,7 +556,7 @@ def type_of(cloud_object: str):
 
 Two comments here:
 
-1. The constants AWS and AZURE essentialy replace the immutable strings 'ami'
+1. The constants AWS and AZURE essentially replace the immutable strings 'ami'
    and 'azure' with immutable names AWS and AZURE. This accomplishes nothing.
 1. They are not used outside this module
 1. They are only used in `type_of()`, not in any other place in the module
@@ -663,54 +594,6 @@ def test_something():
     # short and sweet
 ```
 
-## Python `property` Setter Abuse
-
-First thing's first - *not all properties need a setter*. 
-You can have read-only properties, there's no rule that you must write a setter.
-
-Sometimes, however, we want to have a property with a setter, e.g.
-```python
-class Klass:
-    ...
-    @property # this is the getter
-    def name(self):
-        return self.__name
-
-    @name.setter # this is a good, simple setter
-    def name(self, value):
-        self.__name = value
-```
-
-Setters make the following possible:
-```python
-instance = Klass()
-instance.name = 'Joe' # invokes setter function with 'Joe'
-```
-
-Since setting a property looks exactly like a simple assignment,
-*we do not want nontrivial code in a setter*.
-
-Example of what *not* to do:
-```python
-#bad!
-class BadApp:
-    ...
-    @property
-    def configuration(self):
-        return self.__configuration
-
-    @configuration.setter
-    def configuration(self, yaml_file): # this is a bad, complex setter
-        self.__parse_yaml(yaml_file)
-        self.__compensate_for_missing_values(yaml_file)
-        self.__backup_config_to_remote_server()
-        ...
-        
-# someplace else in the code
-app = BadApp()
-app.configuration = 'config.yaml' # looks like assignment, but lots of action happens here
-```
-
 ## Using Exceptions
 
 * We do not use exceptions for flow control, that's what `if`, `while` and
@@ -720,7 +603,8 @@ app.configuration = 'config.yaml' # looks like assignment, but lots of action ha
 * We don't raise exception classes that belong to standard (or third party)
   namespaces, e.g. we don't write `raise OSError` from our code - that exception class
   belongs to Python's `os` module. 
-  raising `Exception` objects is also an exception (ha ha) to this rule, we do raise those. This allows the following rule:
+  Raising `Exception` objects is also an exception (ha ha) to this rule, we do
+  raise those. This allows the following rule:
 * We do not subclass `Exception`, unless we use our subclass, e.g.:
     * we explicitly filter for it in an `except` clause
     * we subclass those exceptions that are later meant to be passed in a standardised format to another module (e.g. RPC call)
@@ -836,7 +720,7 @@ for birthday in birthdays:
     histogram[month] += 1
 ```
 
-Note that the version with `get` sounds unnatural.
+Note that the version with `get` sounds unnatural when read out loud.
 
 ## Avoid Lengthy `if` Conditions
 
@@ -845,11 +729,11 @@ hard to follow something like
 
 ```python
 #bad!
-if login.password is not None and if login.username is not None:
+if login.password is not None and login.username is not None:
    do_something()
 ```
 
-do this:
+Do this:
 ```python
 #good :)
 if login.password is not None:
@@ -857,7 +741,7 @@ if login.password is not None:
         do_something()
 ```
 
-This is a good solution for `and` conjugations.
+This is a good solution for `and` conjunctions.
 Other complex conditions should have a descriptive variable
 or function to describe them:
 
@@ -880,9 +764,30 @@ if credentials_exist(login):
     logger.info(f'some credentials are available!')
 ```
 
+We may use slightly complex conjunctions (or disjunctions) when there is a semantic reason:
+
+```
+if person.alone and person.in_danger:
+    call_help()
+```
+
+The condition has some semantic merit, it's not just two otherwise unrelated things we need to happen at the same time.
+
 # Further Good Practices For Readable Code
 
 ## Do Not Write Code That "Prepares for the Future" <a name="preparing_for_the_future"></a>
+
+Sometimes we think we can anticipate the future and write something
+a bit more complex that will pay off later. However, no one can predict
+the future, and experience has shown that by the time the future arrives,
+it will not be as we imagined it.
+
+This is a generic bit of advice, so as a concrete example, 
+I give you the "Default Values" example.
+
+### Don't Employ Default Values Unless You Have a Really Good Reason To***
+
+This is a special form of [preparing for the future](#preparing_for_the_future), see the discussion over there.
 
 A common example is using default values to make our code more flexible, e.g.
 
@@ -952,7 +857,9 @@ Always remember this important fact:
 
 **NO ONE CAN PREDICT THE FUTURE**
 
-Anticipating the future is something we should all be doing - at planning meetings. Not when actually coding.
+Anticipating the future is something we should be doing - at planning meetings, and even then - very little of it and very carefully. 
+
+We should *not* be doing it when actually coding.
 
 ## Use Benign Values for Failures Instead of None
 
@@ -989,45 +896,7 @@ for person in get_people_from_database(): # empty list? nothing bad happens
     say_hi(person)
 ```
 
-## No Private `staticmethod`s Please
-A `staticmethod` is essentially an ordinary function, but it is defined under a class:
-```python
-class SomeClass:
-    @staticmethod
-    def list_options():
-        ...
-```
-
-Note that the static method does not have a reference to `self`.
-Essentially, we're using `SomeClass` as a namespace:
-```python
-SomeClass.list_options()
-```
-
-This pattern is good for, e.g., alternative constructors (factory functions).
-
-First sign of abusing `staticmethod` is that your static method is *private*.
-
-Example: sometimes we just need a helper function in our class, that does not depend on `self`,
-but is actually used only in the context of an object (a `self`), e.g.
-
-```python
-class Algorithm:
-    def calculate(self):
-        ...
-        for point in self.__points:
-            if self.__outside(point):
-                outside_count += 1
-            ...
-
-    def __outside(self, point): # note, self is not really used
-        return point.x < 1000 or point.y > 9000 # some nontrivial condition that needs a name, i.e. "_outside"
-```
-
-Some IDEs say it's wrong to have the `__outside` function not be static, since `self` is not used.
-We disagree - this is perfectly fine, and if you use `staticmethod`, you should have a better reason to.
-
-## Force Caller to Use Kwargs
+## Force Caller to Use Kwargs for Extra Readability
 
 "Kwargs" is shorthand for "keyword arguments", e.g. `force` in 
 
@@ -1057,7 +926,7 @@ compare
     # less readable
     once_every(10) # 10 what?
 
-with 
+With 
     
     # more readable
     once_every(seconds=10) # ah, now I get it
@@ -1072,9 +941,35 @@ for line in file.readlines():
     print(line)
 ```
 
-do this:
+Do this:
 ```python
 with open('some_file') as file:
     for line in file:
         print(line.strip()) # must use strip to lose the '\n' in the end, alas
+```
+
+## Never Use Mutable Values As Default Values for Function Arguments
+
+This is a common mistake for the uninitiated in Python.
+
+```python
+#bad! this is a bug
+def add_to(element, to={}):
+    to['a'] = element
+    return to
+```
+
+What happens here is that an empty `dict` is created when the `def` is executed, i.e. *once*,
+and this `dict` is now the default value - even if it mutates and becomes non-empty.
+
+In short, **NEVER DO THIS, THE BUGS WILL DRIVE YOU NUTS**
+
+The proper way to have mutable default values is:
+
+```python
+#good:)
+def add_to(element, to=None):
+    if to is None:
+        to['a'] = element
+        return to
 ```
