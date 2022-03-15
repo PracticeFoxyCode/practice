@@ -1,5 +1,7 @@
 # Practice Foxy Code
 
+## Preamble
+
 Welcome! 
 
 What follows is a list of dos and don'ts on how to write readable, dare I say,
@@ -14,6 +16,8 @@ not claim originality - I've learned much from others even as I have passed
 this knowledge on.
 
 Enjoy!
+
+Yoav Kleinberger, [haarcuba@gmail.com](mailto:haarcuba@gmail.com)
 
 # The Practices
 
