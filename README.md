@@ -15,6 +15,8 @@ I have collected and formulated these rules over 12 years in software - I do
 not claim originality - I've learned much from others even as I have passed
 this knowledge on.
 
+Please star this repo if you like it.
+
 Enjoy!
 
 Yoav Kleinberger, [haarcuba@gmail.com](mailto:haarcuba@gmail.com)
@@ -159,7 +161,7 @@ stall(60, 'allow server to reboot')
 * explanatory variables, e.g. `ALLOW_SERVER_TO_REBOOT` above, are in `ALL_CAPS`. 
 * **one file per public class**: a class named `CookWare` will be inside a file named `cook_ware.py`.
   
-  Note the "public" part, the `cook_ware.py` file may include a private, `__Utensil` class, if it's not too large.
+  Note the "public" part, the `cook_ware.py` file may include a private, `_Utensil` class, if it's not too large.
 
 Here's a summary:
 
