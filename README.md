@@ -57,6 +57,19 @@ encoded = encoder.encode(message)
 
 ## (Almost) Never Write Comments <a name="never_write_comments"></a>
 
+
+### Trivial Comments
+
+Some comments are trivial, e.g.
+
+```python
+# send the request to backend
+self._send_request_to_backend('some text')
+```
+
+The name `_send_request_to_backend` tells the story - the comment just repeats it - obviously we 
+don't need trivial comments.
+
 When you want to write a comment, it means that *you* think that the code is
 not very readable, hence the need to explain it.
 
