@@ -70,6 +70,11 @@ self._send_request_to_backend('some text')
 The name `_send_request_to_backend` tells the story - the comment just repeats it - obviously we 
 don't need trivial comments.
 
+### Non-Trivial Comments
+
+We turn now to the case of a non trivial comment. These are actually worse than
+the trivial ones.
+
 When you want to write a comment, it means that *you* think that the code is
 not very readable, hence the need to explain it.
 
@@ -82,7 +87,7 @@ So, what to do?  **DON'T write the comment, take the time, and put in effort to 
 
 Here are some basic techniques.
 
-### Use constants with meaningful names
+#### Use constants with meaningful names
 ```python
 #bad!
 time.sleep(60) # allow server to reboot
@@ -113,7 +118,7 @@ PREVENT_MONGO_FROM_RAISING_ON_INSERT_ERRORS = {'ordered': False}
 await database.music.insert_many(records, **PREVENT_MONGO_FROM_RAISING_ON_INSERT_ERRORS) # ahh, that's why
 ```
 
-### Extract code to function/class with explanatory name
+#### Extract code to function/class with explanatory name
 
 Let the reader know the semantic steps you had in mind when writing the code:
 
@@ -150,7 +155,7 @@ class ParseRecords:
         return record_type_id is not None
 ```
 
-### Use a Log Instead of a Comment
+#### Use a Log Instead of a Comment
 
 People take log messages much more seriously than they take comments. If they change the code, they will probably change the log message as well. So, we can use log messages as a sort of comment replacement. We return to the `time.sleep` example from before:
 
