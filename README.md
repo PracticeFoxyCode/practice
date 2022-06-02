@@ -7,9 +7,9 @@ Welcome!
 What follows is a list of dos and don'ts on how to write readable, dare I say,
 foxy, code.
 
-Some of the practices are peculiar to Python.
+The rules are presented in Python, and some of the practices are peculiar to Python.
 
-**Many of them are applicable to other programming languages**.
+**However, many, if not most, of the practices are applicable to other programming languages**.
 
 I have collected and formulated these rules over 12 years in software - I do
 not claim originality - I've learned much from others even as I have passed
@@ -202,7 +202,7 @@ Our code should aspire to remind us of the English language.
 A common bad practice is to use shorthand instead of complete words, e.g.
 
 * `conn` instead of `connection`
-* `dest` instance of `destination`
+* `dest` instead of `destination`
 * `err` instead of `error`
 * `fname` instead of `filename`
 * `inst` instead of `instance`
