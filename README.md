@@ -801,7 +801,9 @@ The condition has some semantic merit, it's not just two otherwise unrelated thi
 
 # Further Good Practices For Readable Code
 
-## Do Not Write Code That "Prepares for the Future" <a name="preparing_for_the_future"></a>
+## Planning for the Future <a name="preparing_for_the_future"></a>
+
+**DO NOT WRITE CODE THAT PREPARES FOR THE FUTURE**
 
 Sometimes we think we can anticipate the future and write something
 a bit more complex that will pay off later. However, no one can predict
