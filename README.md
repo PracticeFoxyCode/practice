@@ -636,6 +636,9 @@ def test_something():
     * we subclass those exceptions that are later meant to be passed in a standardised format to another module (e.g. RPC call)
     * meant to add meaning to some other error (e.g. FileNotFoundError means nothing to our caller, wrap it in ConfigurationNotFoundError)
 
+Python has some exception types which are more generic, e.g. `ValueError` or
+`TypeError` - whether or not to raise those is debatable.
+
 If in doubt - start by raising `Exception('a message')` and only define
 your own exception class if you see you actually need it.
 
