@@ -55,6 +55,17 @@ import encoder
 encoded = encoder.encode(message)
 ```
 
+## No Managers <a name="no_managers"></a>
+
+Another common mistake is to call a class, e.g., `FileUploadManager`.
+Obviously it has to do with file uploads, but, again, "Manager" doesn't 
+tell us anything - since "Managing" is also a very abstract concept.
+
+Most of the time, renaming such a class to `FileUploads` will do
+just fine.
+
+There are already too many managers in the world, let's not add more.
+
 ## (Almost) Never Write Comments <a name="never_write_comments"></a>
 
 
