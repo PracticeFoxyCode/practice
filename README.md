@@ -66,6 +66,24 @@ just fine.
 
 There are already too many managers in the world, let's not add more.
 
+## Be Wary of Inheritance <a name="inheritance_sucks"></a>
+
+The [Object Oriented paradigm](https://en.wikipedia.org/wiki/Object-oriented_programming) made Inheritance popular.
+Way too popular, in our humble opinion.
+
+Inheritance has its uses, but experience has shown that it can [spiral out of
+control easily](https://docs.oracle.com/javase/7/docs/api/overview-tree.html).
+For inheritance to be the right choice, it has to be extremely clear that the
+relations between classes make sense, e.g. a design with a `Packet` base class,
+with `IP` and `UDP` subclasses seems reasonable.
+
+However, if you're writing code uploading files, a generic `Communicator` which begets `Uploader` which further begets `FileUploader` and `PipeUploader` smacks of over-design.
+
+The problem with Inheritance is that it introduces implicitness - there is code which is relevant to class `A`, which is actually
+in class `B`. It's not easy for humans to track all this.
+
+Composition (that is, `A` instance has `self._b` which is an instance of `B`) is much more explicit and easier to understand.
+
 ## (Almost) Never Write Comments <a name="never_write_comments"></a>
 
 
