@@ -294,7 +294,7 @@ files: list = files_from_directory()
 ...
 ```
 
-## Namespaces and `import` Statements
+## Import Modules, Not Names: Namespaces and `import` Statements
 
 The Python language has the feature that the directory structure of our Python files
 is also the namespace structure we have in our Python program.
