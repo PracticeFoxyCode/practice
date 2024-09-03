@@ -29,6 +29,16 @@ Every rule here has its exceptions, there is no one way
 to write code for every occasion. We must always use our mind
 when writing code, or else our programming will be, well, mindless.
 
+## Always Assume That Current Working Directory is at the Root of the Project <a name="project_root"></a>
+
+In our projects, we will usually have some commands we want to run, e.g. `make` to build something or `python -m pytest tests/` to run tests.
+
+We should structure our project to always assume that such commands are given from the root of the project.
+For the `make` example, this means that the `Makefile` as present at the top level directory.
+For the `python -m pytest tests/` example this means that `tests/` is directly under the top level directory.
+
+This convention should be documented in the projects `README`, and it will give you lasting happiness and peace.
+
 ## No "helpers", "utilities" or "utils" Module
 
 Generic "helper" modules are hard to understand, since
@@ -465,6 +475,20 @@ or package-level names may be longer.
 A local variable inside a function can probably have a short name,
 since the surrounding context conveys much of the information
 regarding the meaning of this variable.
+
+### Using Context: Avoid Unwarranted Renaming
+
+The killer of productivity is context switching, as anybody having to 
+start a new task while still working on an old one will tell you.
+
+Similarly, if there is no real reason to rename things, we should not
+rename them. 
+
+
+```python
+# bad
+
+```
 
 ## No Magic Numbers
 
