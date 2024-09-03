@@ -33,11 +33,19 @@ when writing code, or else our programming will be, well, mindless.
 
 In our projects, we will usually have some commands we want to run, e.g. `make` to build something or `python -m pytest tests/` to run tests.
 
-We should structure our project to always assume that such commands are given from the root of the project.
+Of course, we want to specify paths, e.g. `tests/` for all kinds of purposes. On the other hand,
+we want to avoid absolute paths from our personal workstation, e.g. `/Users/Johnny/work/projects/my-project/tests`, because
+they hamper collaboration.
+
+The correct compromise is using relative paths, but such that *they are relative to the root of the project*,
+the root of the project is the top level of the files you have stored in your version control (e.g. `git`).
+
+We should therefore structure our project to always assume that such commands are given from the root of the project.
 For the `make` example, this means that the `Makefile` as present at the top level directory.
+
 For the `python -m pytest tests/` example this means that `tests/` is directly under the top level directory.
 
-This convention should be documented in the projects `README`, and it will give you lasting happiness and peace.
+This convention should be documented in the project's `README`, and it will give you lasting happiness and peace.
 
 ## No "helpers", "utilities" or "utils" Module
 
