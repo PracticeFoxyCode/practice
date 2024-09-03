@@ -304,12 +304,31 @@ files: list = files_from_directory()
 ...
 ```
 
-## Import Modules, Not Names: Namespaces and `import` Statements
+## Import Modules, Not Names: Namespaces and `import` Statements <a name="avoid_name_salad"></a>
 
 The Python language has the feature that the directory structure of our Python files
 is also the namespace structure we have in our Python program.
 
-Namespaces are important. Therefore, we observe the following rule:
+
+Remember the [Zen of Python](https://en.wikipedia.org/wiki/Zen_of_Python)
+
+> Namespaces are one honking great idea -- let's do more of those!
+
+Namespaces are important. When you have this
+
+```python
+# this is BAD!!!
+
+from a import x
+from b import y
+from c import z
+
+# now x, y and z are all hanging out together,
+# and the a, b and c namespaces have been completely defeated
+# it's a total name salad!
+```
+
+Therefore, we observe the following rule:
 
 ** IMPORT MODULES, NOT NAMES **
 
@@ -382,6 +401,7 @@ This has the following advantages:
 * it's still explicit that `dog` and `labrador` belongs in the `animals.dogs`
   namespace
 * we still don't import actual names from inside modules, only *modules* themselves.
+
 
 ### Namespace Inflation
 
