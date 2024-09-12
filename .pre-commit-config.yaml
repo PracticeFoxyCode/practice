@@ -28,9 +28,9 @@ repos:
     - id: check-github-workflows
       args: ["--verbose"]
 - repo: https://github.com/PracticeFoxyCode/practice
-  rev: releases/0.7.0
+  rev: beb51d4
   hooks:
     - id: foxylint-imports
       args:
         - "--exclude=tests/fixtures/*.py"
-        - "--accept='from mylogging import logger'"
+        - "--accept=/from mylogging/"
