@@ -6,17 +6,17 @@ on:
         - releases/*
 jobs:
     publish:
-        runs-on: ubuntu-20.04
+        runs-on: ubuntu-24.04
         environment: pypi
         steps:
             - uses: actions/checkout@v3
-            - uses: actions/setup-python@v4
+            - uses: actions/setup-python@v5
               with:
                 python-version: '3.12'
             - run:  ls
             - name: install poetry
               run:  curl -sSL https://install.python-poetry.org | python -
-            - run:  poetry run pip install twine
+            - run:  poetry install
             - run:  rm -fr dist/
             - run:  poetry build -f wheel
             - run:  poetry run twine upload -u __token__ -p ${{ secrets.PUBLISH_TOKEN }} dist/*whl
