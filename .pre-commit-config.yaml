@@ -27,3 +27,9 @@ repos:
   hooks:
     - id: check-github-workflows
       args: ["--verbose"]
+- repo: https://github.com/PracticeFoxyCode/practice
+  rev: releases/0.2.0
+  hooks:
+    - id: foxyy-imports
+      args:
+        - "--exclude=tests/fixtures/*.py"
