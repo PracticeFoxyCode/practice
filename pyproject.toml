@@ -1,6 +1,6 @@
 [tool.poetry]
-name = "foxy"
-version = "0.1.0"
+name = "foxyy"
+version = "0.1.1"
 description = ""
 authors = ["Yoav Kleinberger <haarcuba@gmail.com>"]
 license = "MIT"
@@ -11,10 +11,13 @@ python = "^3.12"
 click = "^8.1.7"
 
 
+[tool.poetry.group.dev.dependencies]
+twine = "^5.1.1"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 
 [tool.poetry.scripts]
-foxy-imports = 'foxy.main:main'
+foxyy-imports = 'foxyy.main:main'
