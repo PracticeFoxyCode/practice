@@ -24,8 +24,10 @@ class _AnalyzeFile:
     def _acceptable(self, namespace, line):
         for pattern in self._acceptable_patterns:
             regex = re.compile(pattern)
-            if regex.search(line) is not None:
+            match = regex.search(line)
+            if match is not None:
                 return True
+
         ACCEPTABLE_NAMESPACES = {'.', 'typing'}
         if namespace in ACCEPTABLE_NAMESPACES:
             return True

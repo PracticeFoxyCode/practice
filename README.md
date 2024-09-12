@@ -1123,7 +1123,7 @@ You can make overall exceptions with `--accpet`, e.g.
       args:
         - "--exclude=tests/fixtures/*.py"
         - "--exclude=some/other/files/*.py" # you can repeat the --exlucde argument
-        - "--accept='from mylogging import logger'" # allow this particular import to pass
+        - "--accept=/from mylogging import logger/" # allow this particular regex to pass, you must use the // delimiters - which are no part of the pattern
 ```
 
 There is a default accepted pattern of `from typing import SomeType` to allow for easy use of the `typing` module.

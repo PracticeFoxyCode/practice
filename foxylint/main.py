@@ -29,6 +29,7 @@ def main(files, exclude, accept):
         if os.path.abspath(file) not in excluded:
             files.append(file)
 
+    accept = [pattern.strip('/') for pattern in accept]
     findings = foxylint.imports.analyze(files, acceptable_patterns=accept)
     bad_files = 0
     for file, analysis in findings.items():
