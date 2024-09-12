@@ -35,6 +35,8 @@ class _AnalyzeFile:
         return self._result
 
 
-def analyze(files):
+def analyze(files, *, acceptable_patterns=None):
+    if acceptable_patterns is None:
+        acceptable_patterns = []
     analyses = {file: _AnalyzeFile(file).result for file in files}
     return analyses
