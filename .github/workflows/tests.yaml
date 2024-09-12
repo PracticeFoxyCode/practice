@@ -1,0 +1,15 @@
+name: Tests
+on:
+  pull_request:
+jobs:
+  Unit-Tests:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: check out our code
+        uses: actions/checkout@v3
+      - name: install poetry
+        run:  curl -sSL https://install.python-poetry.org | python -
+      - name: install myself
+        run:  poetry install
+      - name: unit tests
+        run: python -m pytest -rA -sv tests/ 
