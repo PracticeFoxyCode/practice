@@ -48,5 +48,5 @@ def main(files, exclude, accept):
         red(f'found {bad_files} out of {len(files)} files with non-foxy imports.')
         quit(1)
     else:
-        green(f'all {len(files)} files have foxy imports.')
+        green(f'ALL {len(files)} files have foxy imports.')
         quit(0)
