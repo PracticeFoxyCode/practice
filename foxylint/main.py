@@ -44,9 +44,11 @@ def main(files, exclude, accept):
             line, content = error['line_number'], error['line_content']
             normal(f'  {file}:{line}: {content}')
 
+    print(f'XXXXXXXXXXXXXX {bad_files=}')
+
     if bad_files > 0:
-        red(f'found {bad_files} out of {len(files)} files with non-foxy imports.')
-        quit(1)
+        red(f'{os.getpid()}  found {bad_files} out of {len(files)} files with non-foxy imports.')
+        quit(10 + bad_files)
     else:
-        green(f'ALL {len(files)} files have foxy imports.')
+        green(f'{os.getpid()} ALL {len(files)} files have foxy imports.')
         quit(0)
