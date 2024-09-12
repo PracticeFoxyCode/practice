@@ -1,6 +1,6 @@
 [tool.poetry]
-name = "foxyy"
-version = "0.4.0"
+name = "foxylint"
+version = "0.1.0"
 description = ""
 authors = ["Yoav Kleinberger <haarcuba@gmail.com>"]
 license = "MIT"
@@ -22,4 +22,4 @@ build-backend = "poetry.core.masonry.api"
 
 
 [tool.poetry.scripts]
-foxy-imports = 'foxyy.main:main'
+foxy-imports = 'foxylint.main:main'
