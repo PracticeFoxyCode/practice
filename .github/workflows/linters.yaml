@@ -1,0 +1,15 @@
+name: Linters
+
+on: pull_request
+
+jobs:
+  linters_and_formatters:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main repo
+        uses: actions/checkout@v4
+      - name: Run linters etc
+        uses: pre-commit/action@v3.0.1
+        with:
+          extra_args:
+            --all-files
