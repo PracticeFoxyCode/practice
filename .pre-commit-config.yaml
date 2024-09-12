@@ -21,6 +21,7 @@ repos:
     - id: flake8
       args:
         - --ignore=E203,E501,E266,F541,W503
+        - --exclude=tests/fixtures/*
 - repo: https://github.com/python-jsonschema/check-jsonschema
   rev: 0.28.3
   hooks:

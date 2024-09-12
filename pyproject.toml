@@ -15,6 +15,7 @@ click = "^8.1.7"
 twine = "^5.1.1"
 
 pytest = "^8.3.3"
+ptpython = "^3.0.29"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
