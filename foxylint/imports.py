@@ -2,12 +2,13 @@ import re
 
 
 class _AnalyzeFile:
-    def __init__(self, file):
+    def __init__(self, file, acceptable_patterns):
         self._file = file
+        self._acceptable_patterns = acceptable_patterns
         self._go()
 
     def _go(self):
-        BAD_PATTERN = re.compile(r'from\s+(?P<namespace>\S)+\s+import')
+        BAD_PATTERN = re.compile(r'from\s+(?P<namespace>\S+)\s+import')
         errors = []
         with open(self._file) as f:
             for line_number, line in enumerate(f, start=1):
@@ -21,8 +22,12 @@ class _AnalyzeFile:
         self._result = {'ok': ok, 'errors': errors}
 
     def _acceptable(self, namespace, line):
-        DOT = '.'
-        if namespace == DOT:
+        for pattern in self._acceptable_patterns:
+            regex = re.compile(pattern)
+            if regex.search(line) is not None:
+                return True
+        ACCEPTABLE_NAMESPACES = {'.', 'typing'}
+        if namespace in ACCEPTABLE_NAMESPACES:
             return True
 
         IGNORE_PATTERN = re.compile(r'#\s*foxylint-imports:ignore\s*$')
@@ -34,6 +39,8 @@ class _AnalyzeFile:
         return self._result
 
 
-def analyze(files):
-    analyses = {file: _AnalyzeFile(file).result for file in files}
+def analyze(files, *, acceptable_patterns=None):
+    if acceptable_patterns is None:
+        acceptable_patterns = []
+    analyses = {file: _AnalyzeFile(file, acceptable_patterns).result for file in files}
     return analyses
