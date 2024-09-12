@@ -14,15 +14,20 @@ class _AnalyzeFile:
                 match = BAD_PATTERN.search(line)
                 if match is not None:
                     namespace = match.group('namespace')
-                    if self._acceptable(namespace):
+                    if self._acceptable(namespace, line):
                         continue
                     errors.append({'line_number': line_number, 'line_content': line.strip()})
         ok = len(errors) == 0
         self._result = {'ok': ok, 'errors': errors}
 
-    def _acceptable(self, namespace):
+    def _acceptable(self, namespace, line):
         DOT = '.'
-        return namespace == DOT
+        if namespace == DOT:
+            return True
+
+        IGNORE_PATTERN = re.compile(r'#\s*foxxy-imports:ignore\s*$')
+        if IGNORE_PATTERN.search(line) is not None:
+            return True
 
     @property
     def result(self):
