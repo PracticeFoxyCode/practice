@@ -21,6 +21,30 @@ Enjoy!
 
 Yoav Kleinberger, [haarcuba@gmail.com](mailto:haarcuba@gmail.com)
 
+# Enforcing: Pre-Commit hooks
+
+Currently there is support only for the [Import Modules, not Names](#avoid_name_salad) rule using [pre-commit](https://pre-commit.com/).
+Configure like so:
+
+```yaml
+- repo: https://github.com/PracticeFoxyCode/practice
+  rev: releases/0.5.0
+  hooks:
+    - id: foxylint-imports
+```
+
+You can exclude some files with `--exclude`, e.g.
+
+```yaml
+- repo: https://github.com/PracticeFoxyCode/practice
+  rev: releases/0.5.0
+  hooks:
+    - id: foxylint-imports
+      args:
+        - "--exclude=tests/fixtures/*.py"
+        - "--exclude=some/other/files/*.py" # you can repeat the --exlucde argument
+```
+
 # The Practices
 
 ## Never Say Never
