@@ -1,5 +1,6 @@
 import re
 
+
 class _AnalyzeFile:
     def __init__(self, file):
         self._file = file
@@ -11,16 +12,14 @@ class _AnalyzeFile:
         with open(self._file) as f:
             for line_number, line in enumerate(f, start=1):
                 if BAD_PATTERN.search(line):
-                    errors.append({
-                        'line_number': line_number,
-                        'line_content': line.strip()
-                    })
+                    errors.append({'line_number': line_number, 'line_content': line.strip()})
         ok = len(errors) == 0
         self._result = {'ok': ok, 'errors': errors}
 
     @property
     def result(self):
         return self._result
+
 
 def analyze(files):
     analyses = {file: _AnalyzeFile(file).result for file in files}
