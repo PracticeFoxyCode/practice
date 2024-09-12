@@ -1,4 +1,5 @@
 import click
+import sys
 import os
 import glob
 import foxylint.imports
@@ -46,9 +47,10 @@ def main(files, exclude, accept):
 
     print(f'XXXXXXXXXXXXXX {bad_files=}')
 
+    command_line = ' '.join(sys.argv)
     if bad_files > 0:
-        red(f'{os.getpid()}  found {bad_files} out of {len(files)} files with non-foxy imports.')
+        red(f'{os.getpid()} {command_line=}  found {bad_files} out of {len(files)} files with non-foxy imports.')
         quit(10 + bad_files)
     else:
-        green(f'{os.getpid()} ALL {len(files)} files have foxy imports.')
+        green(f'{os.getpid()}  {command_line=} ALL {len(files)} files have foxy imports.')
         quit(0)
