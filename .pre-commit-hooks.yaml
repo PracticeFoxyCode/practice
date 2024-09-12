@@ -1,4 +1,4 @@
-- id: foxyy-imports
+- id: foxy-imports
   name: Import Modules not Names
   description: disallows the from_x_import_y import statement
   entry: foxy-imports
