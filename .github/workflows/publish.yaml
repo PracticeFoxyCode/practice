@@ -1,0 +1,16 @@
+name: Publish
+on:
+    workflow_dispatch:
+jobs:        
+    publish:
+        runs-on: ubuntu-20.04
+        environment: pypi
+        steps:
+            - uses: actions/checkout@v3
+            - run:  ls
+            - name: install poetry
+              run:  curl -sSL https://install.python-poetry.org | python -
+            - run:  poetry run pip install twine
+            - run:  rm -fr dist/
+            - run:  poetry build -f wheel
+            - run:  poetry run twine upload -u __token__ -p ${{ secrets.PUBLISH_TOKEN }} dist/*whl
