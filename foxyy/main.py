@@ -19,4 +19,5 @@ def main(files):
             continue
         red(f'{file} has non-foxyy imports:')
         for error in analysis['errors']:
-            normal(f'  {error}')
+            line, content = error['line_number'], error['line_content']
+            normal(f'  {line}: {content}')
