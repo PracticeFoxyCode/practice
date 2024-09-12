@@ -13,7 +13,7 @@ def normal(text):
 @click.command()
 @click.argument('files', nargs=-1, type=click.Path())
 def main(files):
-    findings = foxyy.imports.enforce(files)
+    findings = foxyy.imports.analyze(files)
     for file, analysis in findings.items():
         if analysis['ok']:
             continue
