@@ -27,8 +27,8 @@ repos:
   hooks:
     - id: check-github-workflows
       args: ["--verbose"]
-- repo: .
-  rev: e479e3b
+- repo: https://github.com/PracticeFoxyCode/practice
+  rev: 88b5238
   hooks:
     - id: foxylint-imports
       args:
