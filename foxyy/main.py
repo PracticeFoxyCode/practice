@@ -1,4 +1,5 @@
 import click
+import glob
 import foxyy.imports
 
 
@@ -16,7 +17,13 @@ def normal(text):
 
 @click.command()
 @click.argument('files', nargs=-1, type=click.Path())
-def main(files):
+@click.option('--exclude', '-e', multiple=True)
+def main(files, exclude):
+    excluded = []
+    for pattern in exclude:
+        excluded.extend(glob.glob(pattern))
+
+    files = [file for file in files if file not in excluded]
     findings = foxyy.imports.analyze(files)
     bad_files = 0
     for file, analysis in findings.items():
