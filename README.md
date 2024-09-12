@@ -2,7 +2,7 @@
 
 ## Preamble
 
-Welcome! 
+Welcome!
 
 What follows is a list of dos and don'ts on how to write readable, dare I say,
 foxy, code.
@@ -25,7 +25,7 @@ Yoav Kleinberger, [haarcuba@gmail.com](mailto:haarcuba@gmail.com)
 
 ## Never Say Never
 
-Every rule here has its exceptions, there is no one way 
+Every rule here has its exceptions, there is no one way
 to write code for every occasion. We must always use our mind
 when writing code, or else our programming will be, well, mindless.
 
@@ -54,7 +54,7 @@ Generic "helper" modules are hard to understand, since
 
 They also tend to become garbage modules with lots of unrelated code - every
 time someone doesn't know where to put something - into the helper module it
-goes! 
+goes!
 
 Instead, write a module with a meaningful name, even
 if it only has one function inside:
@@ -76,7 +76,7 @@ encoded = encoder.encode(message)
 ## No Managers <a name="no_managers"></a>
 
 Another common mistake is to call a class, e.g., `FileUploadManager`.
-Obviously it has to do with file uploads, but, again, "Manager" doesn't 
+Obviously it has to do with file uploads, but, again, "Manager" doesn't
 tell us anything - since "Managing" is also a very abstract concept.
 
 Most of the time, renaming such a class to `FileUploads` will do
@@ -114,7 +114,7 @@ Some comments are trivial, e.g.
 self._send_request_to_backend('some text')
 ```
 
-The name `_send_request_to_backend` tells the story - the comment just repeats it - obviously we 
+The name `_send_request_to_backend` tells the story - the comment just repeats it - obviously we
 don't need trivial comments.
 
 ### Non-Trivial Comments
@@ -127,7 +127,7 @@ not very readable, hence the need to explain it.
 
 Comments are bad because there is no enforcing their correctness.
 As a result, they degenerate over time. After a few sprints,
-the comment is probably irrelevant and confusing, 
+the comment is probably irrelevant and confusing,
 since the code has changed, but the comment remains.
 
 So, what to do?  **DON'T write the comment, take the time, and put in effort to make the code more readable**
@@ -176,7 +176,7 @@ class ParseRecords:
     def go(self):
         count = 0
         for record in self.__records:
-            # save record type 
+            # save record type
             record_type = great_project.record_types.RecordType(record.name, record.id)
             record_type_id = await record_type.write()
 
@@ -223,9 +223,9 @@ stall(60, 'allow server to reboot')
 * class names are in `CamelCase`
 * module name, local variables, and functions are in `lower_snake_case`
 * constants are in `ALL_CAPS`
-* explanatory variables, e.g. `ALLOW_SERVER_TO_REBOOT` above, are in `ALL_CAPS`. 
+* explanatory variables, e.g. `ALLOW_SERVER_TO_REBOOT` above, are in `ALL_CAPS`.
 * **one file per public class**: a class named `CookWare` will be inside a file named `cook_ware.py`.
-  
+
   Note the "public" part, the `cook_ware.py` file may include a private, `_Utensil` class, if it's not too large.
 
 Here's a summary:
@@ -245,7 +245,7 @@ class TheBest: # class in CamelCase, has same name as module
 
 ## No Shorthand!
 
-Our code should aspire to remind us of the English language. 
+Our code should aspire to remind us of the English language.
 A common bad practice is to use shorthand instead of complete words, e.g.
 
 * `conn` instead of `connection`
@@ -256,9 +256,9 @@ A common bad practice is to use shorthand instead of complete words, e.g.
 * `pckt` instead of `packet`
 * `src` instead of `source`
 
-Et cetera, et cetera, et cetera. These shorthands obscure meaning and 
+Et cetera, et cetera, et cetera. These shorthands obscure meaning and
 save us nothing, not even typing, since the IDE has autocomplete.
-   
+
 Exceptions to this rule are things like `HTML`. We write `HTML` not `hyper text markup language`.
 
 ```python
@@ -269,7 +269,7 @@ s = None
 while s != '':
     s = conn.recv(1024)
     conn.send('echoing back: ' + s)
-    
+
 
 # good :)
 connection, _ = server.accept()
@@ -290,7 +290,7 @@ for file in file_list:
 ```
 
 The problem here is that in most cases, nobody cares if the thing I'm iterating
-on is a list, a set, dictionary values, whatever, so why call it `file_list`? The `_list` here 
+on is a list, a set, dictionary values, whatever, so why call it `file_list`? The `_list` here
 tells us something that we don't care about - hence, it's a waste of our brain power to process it.
 Our brain power is a scarce resource - let's not waste it.
 
@@ -304,7 +304,7 @@ for file in directory_files:
 
 It's also closer to English, which is what we always strive for.
 
-If, for some reason, it's really important to specify the 
+If, for some reason, it's really important to specify the
 type, use an annotation:
 
 ```python
@@ -384,7 +384,7 @@ However, you can use `from . import thing` if `thing` belongs in the same namesp
             ├── __init__.py
             ├── dog.py
             ├── golden_retriever.py
-            └── labrador.py          
+            └── labrador.py
         ├── cats/
 
 And say we're looking at `labrador.py` file:
@@ -441,7 +441,7 @@ import parsers.textual.perl # DRY - don't repeat yourself
 
 # later on...
 perl_parser = parsers.textual.perl.Perl()  # full context, still readable. The hierarchy is very clear
-``` 
+```
 
 At least that's how you should import this module from outside the `parsers` namespace. From *inside* the `parsers` namespace, you should write
 
@@ -477,7 +477,7 @@ class RenameFiles:
             shutil.move(filename, new_filename)
 
 rename_files = RenameFiles()
-rename_files.rename_files(my_files) # my eyes hurt from all these repeated "rename" and "files" 
+rename_files.rename_files(my_files) # my eyes hurt from all these repeated "rename" and "files"
 
 #good :)
 class RenameFiles:
@@ -486,7 +486,7 @@ class RenameFiles:
             new_name = f'{old_name}.new'    # "new_name" and not "new_filename", of course it's a file name, no need to repeat that
             shutil.move(old_name, new_name)
 
-renamer = RenameFiles() # only one line from RenameFiles() to the user of renamer, so 
+renamer = RenameFiles() # only one line from RenameFiles() to the user of renamer, so
 renamer.go(my_files)    # we can use a shorter name "renamer" instead of "rename_files" or "file_renamer"
 ```
 
@@ -496,8 +496,8 @@ Using context properly means that a global variable's name will
 probably be quite long - since it is in global context, its name
 has to carry a lot of information.
 
-Lucky for us, Python doesn't really have a truly global context, so 
-the worst case scenario is module context. Still, module level 
+Lucky for us, Python doesn't really have a truly global context, so
+the worst case scenario is module context. Still, module level
 or package-level names may be longer.
 
 A local variable inside a function can probably have a short name,
@@ -506,11 +506,11 @@ regarding the meaning of this variable.
 
 ### Using Context: Avoid Unwarranted Renaming
 
-The killer of productivity is context switching, as anybody having to 
+The killer of productivity is context switching, as anybody having to
 start a new task while still working on an old one will tell you.
 
 Similarly, if there is no real reason to rename things, we should not
-rename them. 
+rename them.
 
 
 ```python
@@ -536,7 +536,7 @@ raise HTTPError(http.HTTPStatus.BAD_REQUEST)
 ## Avoid Nesting Important Flows - Prefer to Nest Unimportant Flows
 
 Here's code that processes files. I demonstrate here
-good and bad ways to defend against file not existing, 
+good and bad ways to defend against file not existing,
 and defending against processing comments.
 
 ```python
@@ -547,7 +547,7 @@ for file in files:
             if not line.startswith('#'):
                 # this is the code we care about
                 # but it's nested *four* indents in!
-                do_something_1(line)                         
+                do_something_1(line)
                 do_something_2(line)
 
 
@@ -561,7 +561,7 @@ for file in files:
 def process(line):
     if line.startswith('#'):
         return
-    
+
     do_something_1(line) # this is the code we care about
     do_something_2(line) # this time, it's only minimally nested
 ```
@@ -573,9 +573,9 @@ and should be broken into smaller files with smaller responsibilities.
 
 A file should have one (public) class, with the same name as the file.
 
-* Most files should be at most 70-80 lines long. 
+* Most files should be at most 70-80 lines long.
 * A 100 line file is probably too long.
-* A 150 line file is surely too long. 
+* A 150 line file is surely too long.
 
 Functions should also be short and sweet.
 
@@ -586,7 +586,7 @@ Functions should also be short and sweet.
 
 
 *There is a known exception to this rule*: test files. Tests can be long files, with up to ~500 lines,
-since they cover many different cases, and they tend to be more verbose. If a test file passes the 500 
+since they cover many different cases, and they tend to be more verbose. If a test file passes the 500
 line mark - it's suspect, and probably should be broken to smaller files.
 
 Even one-line functions may be useful, if they enhance meaning:
@@ -609,7 +609,7 @@ Sometimes a one liner is clear enough such that it doesn't need a function descr
 
 Type annotations are useful for enhancing readability and also for linters.
 
-We use type annotations when they help us, and don't use them when they 
+We use type annotations when they help us, and don't use them when they
 only introduce clutter.
 
 Here's a good example of when to use them:
@@ -709,7 +709,7 @@ def test_something():
   the condition beforehand and handle it (unless it's racy - that's something else).
 * We don't raise exception classes that belong to standard (or third party)
   namespaces, e.g. we don't write `raise OSError` from our code - that exception class
-  belongs to Python's `os` module. 
+  belongs to Python's `os` module.
   Raising `Exception` objects is also an exception (ha ha) to this rule, we do
   raise those. This allows the following rule:
 * We do not subclass `Exception`, unless we use our subclass, e.g.:
@@ -729,7 +729,7 @@ Python considers many values to be `falsey`, e.g.
 ```python
 #bad!
 people = list_of_persons() # let's say this returns []
-if not people: 
+if not people:
      # [] is falsey, so this code runs
      print("I'm all alone")
 ```
@@ -775,7 +775,7 @@ if person.is_underage() == True:
 if person.is_underage():
     raise NoAlcoholForYouError()
 
-# also good :) 
+# also good :)
 if person.underage():
     raise NoAlcoholForYouError()
 ```
@@ -803,7 +803,7 @@ class Entity:
 ```
 
 Essentially the Query-Command Principle separates _functions_ and _procedures_.
-The _functions_ are the ones that don't change state, and the _procedures_ are 
+The _functions_ are the ones that don't change state, and the _procedures_ are
 the ones that do change state.
 
 By the way, if a function does not change state, and also *always returns the same result for the same arguments*,
@@ -819,7 +819,7 @@ As in the `NoAlcoholForYouError` example, the use of `get` breaks
 the English language.
 
 ```python
-#bad! 
+#bad!
 for birthday in birthdays:
     month = birthday.get_month()  # this get breaks my teeth
     histogram[month] += 1
@@ -834,7 +834,7 @@ Note that the version with `get` sounds unnatural when read out loud.
 
 ## Avoid Lengthy `if` Conditions
 
-Human brains are poor logic machines, that's why we use computers. It's 
+Human brains are poor logic machines, that's why we use computers. It's
 hard to follow something like
 
 ```python
@@ -894,7 +894,7 @@ a bit more complex that will pay off later. However, no one can predict
 the future, and experience has shown that by the time the future arrives,
 it will not be as we imagined it.
 
-This is a generic bit of advice, so as a concrete example, 
+This is a generic bit of advice, so as a concrete example,
 I give you the "Default Values" example.
 
 ### Don't Employ Default Values Unless You Have a Really Good Reason To***
@@ -905,7 +905,7 @@ A common example is using default values to make our code more flexible, e.g.
 
 ```python
 #bad!
-def read_all(socket, chunk_size=1024): 
+def read_all(socket, chunk_size=1024):
     # in the future, I will be able to easily change chunk_size! I'm so smart!
     read = socket.recv(chunk_size)
     bytes_ = b''
@@ -920,7 +920,7 @@ def actual_usage_of_read_all():
 
 ```
 
-What's so terrible, you ask? 
+What's so terrible, you ask?
 
 * The Only Reason for Bugs - Is Code.
 * Code that does not exist, does not contain bugs.
@@ -969,7 +969,7 @@ Always remember this important fact:
 
 **NO ONE CAN PREDICT THE FUTURE**
 
-Anticipating the future is something we should be doing - at planning meetings, and even then - very little of it and very carefully. 
+Anticipating the future is something we should be doing - at planning meetings, and even then - very little of it and very carefully.
 
 We should *not* be doing it when actually coding.
 
@@ -990,7 +990,7 @@ def get_people_from_database():
     ...
     if not found:
         return None
-    
+
     return list_of_people
 ```
 
@@ -1010,7 +1010,7 @@ for person in get_people_from_database(): # empty list? nothing bad happens
 
 ## Force Caller to Use Kwargs for Extra Readability
 
-"Kwargs" is shorthand for "keyword arguments", e.g. `force` in 
+"Kwargs" is shorthand for "keyword arguments", e.g. `force` in
 
     remove(filename, force=True) # the force= pattern makes it a kwarg
 
@@ -1018,7 +1018,7 @@ In Python 3, we can mandate the caller to use kwargs:
 
 ```python
 
-# use of kwargs optional, 
+# use of kwargs optional,
 # caller can use remove('file', True)
 # or remove('file', force=True)
 def remove(filename, force):
@@ -1038,8 +1038,8 @@ compare
     # less readable
     once_every(10) # 10 what?
 
-With 
-    
+With
+
     # more readable
     once_every(seconds=10) # ah, now I get it
 
