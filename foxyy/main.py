@@ -5,8 +5,10 @@ import foxyy.imports
 def red(text):
     return click.secho(text, fg='red', bold=True)
 
+
 def green(text):
     return click.secho(text, fg='green', bold=True)
+
 
 def normal(text):
     return click.secho(text)
