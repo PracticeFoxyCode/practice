@@ -1,6 +1,6 @@
 import namespace.x.y
 from . import something
-from bad import behaviour  # foxxy-imports:ignore
+from bad import behaviour  # foxy-imports:ignore
 
 
 def f():
