@@ -25,7 +25,7 @@ class _AnalyzeFile:
         if namespace == DOT:
             return True
 
-        IGNORE_PATTERN = re.compile(r'#\s*foxy-imports:ignore\s*$')
+        IGNORE_PATTERN = re.compile(r'#\s*foxylint-imports:ignore\s*$')
         if IGNORE_PATTERN.search(line) is not None:
             return True
 
