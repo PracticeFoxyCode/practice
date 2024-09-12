@@ -17,33 +17,12 @@ this knowledge on.
 
 Please star this repo if you like it.
 
+You can enforce a subset of this using automatic `pre-commit` hooks, see [enforcing](#enforcing).
+
 Enjoy!
 
 Yoav Kleinberger, [haarcuba@gmail.com](mailto:haarcuba@gmail.com)
 
-# Enforcing: Pre-Commit hooks
-
-Currently there is support only for the [Import Modules, not Names](#avoid_name_salad) rule using [pre-commit](https://pre-commit.com/).
-Configure like so:
-
-```yaml
-- repo: https://github.com/PracticeFoxyCode/practice
-  rev: releases/0.5.0
-  hooks:
-    - id: foxylint-imports
-```
-
-You can exclude some files with `--exclude`, e.g.
-
-```yaml
-- repo: https://github.com/PracticeFoxyCode/practice
-  rev: releases/0.5.0
-  hooks:
-    - id: foxylint-imports
-      args:
-        - "--exclude=tests/fixtures/*.py"
-        - "--exclude=some/other/files/*.py" # you can repeat the --exlucde argument
-```
 
 # The Practices
 
@@ -1108,4 +1087,53 @@ def add_to(element, to=None):
     if to is None:
         to['a'] = element
         return to
+```
+
+# Enforcing: Pre-Commit hooks <a name="enforcing"></a>
+
+Currently there is support only for the [Import Modules, not Names](#avoid_name_salad) rule using [pre-commit](https://pre-commit.com/).
+Configure like so:
+
+```yaml
+- repo: https://github.com/PracticeFoxyCode/practice
+  rev: releases/0.5.0
+  hooks:
+    - id: foxylint-imports
+```
+
+You can exclude some files with `--exclude`, e.g.
+
+```yaml
+- repo: https://github.com/PracticeFoxyCode/practice
+  rev: releases/0.5.0
+  hooks:
+    - id: foxylint-imports
+      args:
+        - "--exclude=tests/fixtures/*.py"
+        - "--exclude=some/other/files/*.py" # you can repeat the --exlucde argument
+```
+
+You can make overall exceptions with `--accpet`, e.g.
+
+```yaml
+- repo: https://github.com/PracticeFoxyCode/practice
+  rev: releases/0.5.0
+  hooks:
+    - id: foxylint-imports
+      args:
+        - "--exclude=tests/fixtures/*.py"
+        - "--exclude=some/other/files/*.py" # you can repeat the --exlucde argument
+        - "--accept='from mylogging import logger'" # allow this particular import to pass
+```
+
+There is a default accepted pattern of `from typing import SomeType` to allow for easy use of the `typing` module.
+
+You can also ignore specific lines with the `foxyling-imports:ignore` directive comment, e.g.,
+
+```python
+import sys
+from bad import behaviour  # foxylint-imports:ignore
+
+def myfunc():
+    ...
 ```
