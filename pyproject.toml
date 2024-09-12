@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "foxy"
+version = "0.1.0"
+description = ""
+authors = ["Yoav Kleinberger <haarcuba@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+click = "^8.1.7"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+
+[tool.poetry.scripts]
+foxy-imports = 'foxy.main:main'
