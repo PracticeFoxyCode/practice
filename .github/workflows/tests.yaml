@@ -12,4 +12,4 @@ jobs:
       - name: install myself
         run:  poetry install
       - name: unit tests
-        run: python -m pytest -rA -sv tests/ 
+        run: python -m pytest -rA -sv tests/
