@@ -7,9 +7,12 @@ jobs:
     steps:
       - name: check out our code
         uses: actions/checkout@v3
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
       - name: install poetry
         run:  curl -sSL https://install.python-poetry.org | python -
       - name: install myself
         run:  poetry install
       - name: unit tests
-        run: python -m pytest -rA -sv tests/
+        run: poetry run python -m pytest -rA -sv tests/
