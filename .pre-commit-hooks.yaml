@@ -1,0 +1,6 @@
+- id: foxyy-imports
+  name: Import Modules not Names
+  description: disallows the from_x_import_y import statement
+  entry: foxyy-imports
+  language: python
+  types: [python]
