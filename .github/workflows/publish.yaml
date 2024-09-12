@@ -1,6 +1,9 @@
 name: Publish
 on:
     workflow_dispatch:
+    push:
+      tags:
+        - releases/*
 jobs:
     publish:
         runs-on: ubuntu-20.04
