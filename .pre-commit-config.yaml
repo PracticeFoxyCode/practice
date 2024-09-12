@@ -27,9 +27,9 @@ repos:
   hooks:
     - id: check-github-workflows
       args: ["--verbose"]
-#- repo: https://github.com/PracticeFoxyCode/practice
-  #rev: releases/0.3.0
-  #hooks:
-    #- id: foxylint-imports
-      #args:
-        #- "--exclude=tests/fixtures/*.py"
+- repo: https://github.com/PracticeFoxyCode/practice
+  rev: releases/0.5.0
+  hooks:
+    - id: foxylint-imports
+      args:
+        - "--exclude=tests/fixtures/*.py"
