@@ -10,6 +10,9 @@ jobs:
         environment: pypi
         steps:
             - uses: actions/checkout@v3
+            - uses: actions/setup-python@v4
+              with:
+                python-version: '3.12'
             - run:  ls
             - name: install poetry
               run:  curl -sSL https://install.python-poetry.org | python -
