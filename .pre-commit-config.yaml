@@ -21,16 +21,17 @@ repos:
     - id: flake8
       args:
         - --ignore=E203,E501,E266,F541,W503
-        - --exclude=tests/fixtures/*
+        - '--exclude=tests/fixtures/*,pre-commit-sentinels/*'
 - repo: https://github.com/python-jsonschema/check-jsonschema
   rev: 0.28.3
   hooks:
     - id: check-github-workflows
       args: ["--verbose"]
 - repo: https://github.com/PracticeFoxyCode/practice
-  rev: releases/0.9.0
+  rev: 4ec1c03
   hooks:
     - id: foxylint-imports
       args:
         - "--exclude=tests/fixtures/*.py"
+        - "--exclude=pre-commit-sentinels/**/*.py"
         - "--accept=/from mylogging/"
