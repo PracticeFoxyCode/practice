@@ -19,7 +19,7 @@ def bold(text):
 def main(files, exclude, accept):
     excluded = []
     for pattern in exclude:
-        excluded.extend(glob.glob(pattern))
+        excluded.extend(glob.glob(pattern, recursive=True))
 
     excluded = [str(os.path.abspath(file)) for file in excluded]
 
