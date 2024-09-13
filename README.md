@@ -1113,6 +1113,8 @@ You can exclude some files with `--exclude`, e.g.
         - "--exclude=some/other/files/*.py" # you can repeat the --exlucde argument
 ```
 
+You can use `**` globbing in exlude patterns.
+
 You can make overall exceptions with `--accpet`, e.g.
 
 ```yaml
