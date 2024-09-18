@@ -28,7 +28,7 @@ class _AnalyzeFile:
             if match is not None:
                 return True
 
-        ACCEPTABLE_NAMESPACES = {'.', 'typing'}
+        ACCEPTABLE_NAMESPACES = {'.', '..', '...', 'typing'}
         if namespace in ACCEPTABLE_NAMESPACES:
             return True
 

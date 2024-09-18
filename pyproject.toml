@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "foxylint"
-version = "1.0.0"
+version = "1.1.0"
 description = ""
 authors = ["Yoav Kleinberger <haarcuba@gmail.com>"]
 license = "MIT"
