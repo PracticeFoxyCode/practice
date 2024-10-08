@@ -4,3 +4,9 @@
   entry: foxylint-imports
   language: python
   types: [python]
+- id: yaml-not-yml
+  name: YAML files must end with .yaml
+  description: disallows the .yml suffix, allows only .yaml
+  entry: foxylint-noyml
+  language: python
+  types: [file]
