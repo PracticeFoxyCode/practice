@@ -16,7 +16,7 @@ jobs:
       - name: install myself
         run:  poetry install
       - name: Run linters etc
-        uses: pre-commit/action@v3.0.1
-        with:
-          extra_args:
-            --all-files
+        run: |
+          set -e
+          poetry run pip install pre-commit
+          poetry run pre-commit run --all-files
