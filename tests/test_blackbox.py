@@ -6,6 +6,7 @@ import box
 
 HERE = pathlib.Path(__file__).parent
 
+
 @pytest.fixture
 def files():
     good = str(HERE / 'fixtures' / 'good.py')
@@ -19,6 +20,7 @@ def test_imports(files):
     findings = foxylint.imports.analyze([files.good, files.bad], acceptable_patterns=ACCEPTABLE_PATTERNS)
     assert findings[files.good]['ok'] is True
     assert findings[files.bad]['ok'] is False
+
 
 def test_loggingcase(files):
     findings = foxylint.loggingcase.analyze([files.good, files.bad])

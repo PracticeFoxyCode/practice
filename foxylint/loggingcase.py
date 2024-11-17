@@ -1,5 +1,4 @@
 import re
-import ast
 
 
 class _AnalyzeFile:
