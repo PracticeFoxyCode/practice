@@ -13,5 +13,6 @@ def f():
     logger = logging.getLogger(__name__)
     logging.info('hi there')
     logger.info('hello')
+    # logger.info('I start with a capital but I am commented out')
     logging.info('I start with a capital, but I have a comment that allows this')  # foxylint-loggingcase:ignore
     logging.info('Another line starts with a capital, but I have a comment that allows this')  # foxylint-loggingcase:ignore
