@@ -7,8 +7,21 @@ class _AnalyzeFile:
         self._go()
 
     def _go(self):
-        self._result = {'ok': False, 'errors': []}
-        return
+        BAD_PATTERN = re.compile(r"""(logging|logger)\.(info|warning|error|debug|critical)\(["'][A-Z]""")
+        errors = []
+        with open(self._file) as f:
+            for line_number, line in enumerate(f, start=1):
+                match = BAD_PATTERN.search(line)
+                if match is not None:
+                    if self._acceptable(line):
+                        continue
+                    errors.append({'line_number': line_number, 'line_content': line.strip()})
+        ok = len(errors) == 0
+        self._result = {'ok': ok, 'errors': errors}
+
+    def _acceptable(self, line):
+        IGNORE_PATTERN = re.compile(r'#\s*foxylint-loggingcase:ignore\s*$')
+        return IGNORE_PATTERN.search(line) is not None
 
     @property
     def result(self):
