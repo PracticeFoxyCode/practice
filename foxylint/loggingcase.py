@@ -1,4 +1,5 @@
 import re
+import ast
 
 
 class _AnalyzeFile:
@@ -20,8 +21,13 @@ class _AnalyzeFile:
         self._result = {'ok': ok, 'errors': errors}
 
     def _acceptable(self, line):
+        if self._comment(line):
+            return True
         IGNORE_PATTERN = re.compile(r'#\s*foxylint-loggingcase:ignore\s*$')
         return IGNORE_PATTERN.search(line) is not None
+
+    def _comment(self, line):
+        return line.strip().startswith('#')
 
     @property
     def result(self):
