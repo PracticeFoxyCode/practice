@@ -1,7 +1,13 @@
 - id: foxylint-imports
   name: Import Modules not Names
   description: disallows the from_x_import_y import statement
-  entry: foxylint-imports
+  entry: foxylint-main imports
+  language: python
+  types: [python]
+- id: foxylint-loggingcase
+  name: Enforce lowercase logging
+  description: do not capitalize sentences in log messages like you would in ordinary English
+  entry: foxylint-main loggingcase
   language: python
   types: [python]
 - id: yaml-not-yml
