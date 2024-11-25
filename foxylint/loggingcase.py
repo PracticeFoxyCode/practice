@@ -7,7 +7,7 @@ class _AnalyzeFile:
         self._go()
 
     def _go(self):
-        BAD_PATTERN = re.compile(r"""(logging|logger)\.(info|warning|error|debug|critical)\(["'][A-Z]""")
+        BAD_PATTERN = re.compile(r"""(logging|logger)\.(info|warning|error|debug|critical)\([rf]?["'][A-Z]""")
         errors = []
         with open(self._file) as f:
             for line_number, line in enumerate(f, start=1):

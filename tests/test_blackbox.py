@@ -19,10 +19,14 @@ def test_imports(files):
     ACCEPTABLE_PATTERNS = [LOGGING_PATTERN]
     findings = foxylint.imports.analyze([files.good, files.bad], acceptable_patterns=ACCEPTABLE_PATTERNS)
     assert findings[files.good]['ok'] is True
+    assert len(findings[files.good]['errors']) == 0
     assert findings[files.bad]['ok'] is False
+    assert len(findings[files.bad]['errors']) == 2
 
 
 def test_loggingcase(files):
     findings = foxylint.loggingcase.analyze([files.good, files.bad])
     assert findings[files.good]['ok'] is True
+    assert len(findings[files.good]['errors']) == 0
     assert findings[files.bad]['ok'] is False
+    assert len(findings[files.bad]['errors']) == 5
