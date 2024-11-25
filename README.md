@@ -888,7 +888,7 @@ The condition has some semantic merit, it's not just two otherwise unrelated thi
 
 # Further Good Practices For Readable Code
 
-## Planning for the Future <a name="preparing_for_the_future"></a>
+## (Avoid) Planning for the Future <a name="preparing_for_the_future"></a>
 
 **DO NOT WRITE CODE THAT PREPARES FOR THE FUTURE**
 
