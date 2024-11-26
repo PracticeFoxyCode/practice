@@ -1091,21 +1091,26 @@ def add_to(element, to=None):
 
 # Enforcing: Pre-Commit hooks <a name="enforcing"></a>
 
-Currently there is support only for the [Import Modules, not Names](#avoid_name_salad) rule using [pre-commit](https://pre-commit.com/).
+Currently there are hooks for
+
+* the [Import Modules, not Names](#avoid_name_salad) rule using [pre-commit](https://pre-commit.com/).
+* enforce YAML files ending with `.yaml` (and not `.yml`)
+* enforce that log messages start with a lowercase letter
+
 Configure like so:
 
 ```yaml
 - repo: https://github.com/PracticeFoxyCode/practice
-  rev: releases/0.5.0
+  rev: releases/1.3.1
   hooks:
-    - id: foxylint-imports
+    - id: foxylint-imports      # import modules, not names
+    - id: yaml-not-yml          # YAML files should end with .yaml
+    - id: foxylint-loggingcase  # log messages should start with a lowercase character
 ```
 
 You can exclude some files with `--exclude`, e.g.
 
 ```yaml
-- repo: https://github.com/PracticeFoxyCode/practice
-  rev: releases/0.5.0
   hooks:
     - id: foxylint-imports
       args:
@@ -1118,8 +1123,6 @@ You can use `**` globbing in exclude patterns.
 You can make overall exceptions with `--accpet`, e.g.
 
 ```yaml
-- repo: https://github.com/PracticeFoxyCode/practice
-  rev: releases/0.5.0
   hooks:
     - id: foxylint-imports
       args:
@@ -1130,7 +1133,7 @@ You can make overall exceptions with `--accpet`, e.g.
 
 There is a default accepted pattern of `from typing import SomeType` to allow for easy use of the `typing` module.
 
-You can also ignore specific lines with the `foxyling-imports:ignore` directive comment, e.g.,
+You can also ignore specific lines with the `foxylint-imports:ignore` directive comment, e.g.,
 
 ```python
 import sys
@@ -1139,3 +1142,5 @@ from bad import behaviour  # foxylint-imports:ignore
 def myfunc():
     ...
 ```
+
+Similarly, for the `foxylint-loggingcase` hook you can ignore specific lines with   `foxylint-loggingcase:ignore`
