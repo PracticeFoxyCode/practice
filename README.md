@@ -758,7 +758,7 @@ Remember the [Zen of Python](https://en.wikipedia.org/wiki/Zen_of_Python): expli
 However, don't do this:
 ```python
 path = pathlib.Path('/path/to/myfile')
-if path.is_dir() == True:
+if path.is_dir() is True:
     # do directory stuff
     ...
 ```
@@ -767,11 +767,11 @@ These sorts of "query" functions, such as `is_dir` already imply Boolean values.
 This is true even if the functions name does not contain "is", e.g. (in fact, there is a considerable body of opinion that believes that "is is evil", and even more importantly - we agree!)
 ```python
 # bad! overly explicit, non-English code
-if person.underage() == True:
+if person.underage() is True:
     raise NoAlcoholForYouError()
 
 # bad! this is truly evil
-if person.is_underage() == True:
+if person.is_underage() is True:
     raise NoAlcoholForYouError()
 
 # good :) English like code
