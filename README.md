@@ -53,7 +53,7 @@ This convention should be documented in the project's `README`, and it will give
 ## No "helpers", "utilities" or "utils" Module
 
 Generic "helper" modules are hard to understand, since
-"help" or "utility" is a very abstract concept.
+"help" or "utility" is a very [abstract concept](https://en.wikipedia.org/wiki/Form_of_the_Good).
 
 They also tend to become garbage modules with lots of unrelated code - every
 time someone doesn't know where to put something - into the helper module it
