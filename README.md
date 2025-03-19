@@ -1085,6 +1085,7 @@ The proper way to have mutable default values is:
 #good:)
 def add_to(element, to=None):
     if to is None:
+        to = {}
         to['a'] = element
         return to
 ```
