@@ -3,6 +3,7 @@
 ## Basics
 
 * Learn touch typing.
+* Understand the shell, do a basics `bash` course.
 * Use scaffolding for bootstraping your project, e.g. `cookiecutter`. Good for standardizing your organization's projects and saving time on setup.
 * Never write wikis, always scripts.
 * Get your minimal hooks set up from the start with your CI.
