@@ -13,6 +13,12 @@
   * use lock-files for reproducible builds.
   * Save artifacts tagged by commit hash.
   * Leverage ecosystem documentation.
+* For a very lean project, the README lists
+  * one liner for setting up the project
+  * one liner for running tests
+  * minimal further explanations
+  * expand this only when actually needed: e.g. team members cannot onboard without it.
+* Story Tests are the ultimate user guide
 
 ## Security
 
