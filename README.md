@@ -1097,6 +1097,7 @@ Currently there are hooks for
 * the [Import Modules, not Names](#avoid_name_salad) rule using [pre-commit](https://pre-commit.com/).
 * enforce YAML files ending with `.yaml` (and not `.yml`)
 * enforce that log messages start with a lowercase letter
+* the [(Almost) Never Write Comments](#never_write_comments) rule
 
 Configure like so:
 
@@ -1107,6 +1108,7 @@ Configure like so:
     - id: foxylint-imports      # import modules, not names
     - id: yaml-not-yml          # YAML files should end with .yaml
     - id: foxylint-loggingcase  # log messages should start with a lowercase character
+    - id: foxylint-nocomments   # (almost) never write comments
 ```
 
 You can exclude some files with `--exclude`, e.g.
@@ -1145,3 +1147,9 @@ def myfunc():
 ```
 
 Similarly, for the `foxylint-loggingcase` hook you can ignore specific lines with   `foxylint-loggingcase:ignore`
+
+The `foxylint-nocomments` hook disallows comments altogether (a shebang line, e.g. `#!/usr/bin/env python`, on the first line of a file is always allowed). You can make an explicit exception for a specific comment with the `foxylint-nocomments:ignore` directive, placed anywhere within the comment, e.g.,
+
+```python
+ALLOW_SERVER_TO_REBOOT = 60  # yes this magic number needs an explanation too, sometimes  # foxylint-nocomments:ignore
+```
