@@ -53,3 +53,12 @@ repos:
       entry: foxylint-noyml
       language: python
       types: [file]
+    - id: foxylint-nocomments
+      name: No Comments
+      description: disallows comments, with explicit exceptions
+      entry: foxylint-main nocomments
+      language: python
+      types: [python]
+      args:
+        - "--exclude=tests/fixtures/*.py"
+        - "--exclude=pre-commit-sentinels/**/*.py"

@@ -3,6 +3,7 @@ import os
 import glob
 import foxylint.imports
 import foxylint.loggingcase
+import foxylint.nocomments
 
 
 def red(text):
@@ -71,4 +72,14 @@ def imports(context, files, exclude, accept):
 def loggingcase(context, files, exclude):
     files = _find_files(files, exclude=exclude)
     findings = foxylint.loggingcase.analyze(files)
+    _show_findings(findings)
+
+
+@main.command()
+@click.pass_context
+@click.argument('files', nargs=-1, type=click.Path())
+@click.option('--exclude', '-e', multiple=True)
+def nocomments(context, files, exclude):
+    files = _find_files(files, exclude=exclude)
+    findings = foxylint.nocomments.analyze(files)
     _show_findings(findings)
